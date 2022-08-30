@@ -24,4 +24,4 @@ Windows ユーザは[こちらの記事](https://bleis-tift.hatenablog.com/entry
 1. `exercise/` に置いてあるファイルをエディタで開く
 2. プログラムを実装
 3. ターミナルで `ochacaml` と打ち、インタプリタを起動
-4. `#use "filename.ml ;;"` でプログラムを読み込み、テストを実行
+4. `load "filename.ml ;;"` でプログラムを読み込み、テストを実行

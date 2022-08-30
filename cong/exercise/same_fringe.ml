@@ -31,7 +31,7 @@ let start tree =
   reset (fun () -> walk tree; Done) ;;
 
 (* 二つの二分木の値の並びが同じかどうかを判定する *)
-let rec same_fringe tree1 tree2 =
+let same_fringe tree1 tree2 =
   let rec loop r1 r2 = 
     match (r1, r2) with
       (Done, Done) -> ...
