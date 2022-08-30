@@ -6,7 +6,8 @@ type tree_t =
 (* 二分木の例 *)
 let tree1 = Node (Node (Leaf, 1, Leaf), 2, Node (Leaf, 3, Leaf)) ;;
 let tree2 = Node (Leaf, 1, Node (Node (Leaf, 2, Leaf), 3, Leaf)) ;;
-let tree3 = Node (Node (Leaf, 2, Leaf), 1, Node (Leaf, 3, Leaf)) ;;
+let tree3 = Node (Node (Leaf, 1, Leaf), 3, Node (Leaf, 2, Leaf)) ;;
+let tree4 = Node (Node (Leaf, 1, Leaf), 3, Leaf) ;;
 
 (* 計算の状態 *)
 type 'a result_t =
@@ -29,16 +30,19 @@ let rec walk tree =
 let start tree =
   reset (fun () -> walk tree; Done) ;;
 
-(* ノードの値を出力する *)
-let print_nodes tree =
-  let rec loop r = 
-    match r with
-      Done -> ()
-    | Next (n, k) ->
-       print_int n; loop (k ()) in
-  loop (start tree) ;;
+(* 二つの二分木の値の並びが同じかどうかを判定する *)
+let same_fringe tree1 tree2 =
+  let rec loop r1 r2 = 
+    match (r1, r2) with
+      (Done, Done) -> true
+    | (Next (n1, k1), Next (n2, k2)) ->
+       if n1 = n2 then loop (k1 ()) (k2 ())
+       else false
+    | _ -> false in
+  loop (start tree1) (start tree2) ;;
 
-(* 動作例 *)
-print_nodes tree1 ;;
-print_nodes tree2 ;;
-print_nodes tree3 ;;
+(* テスト *)
+let test1 = same_fringe tree1 tree2 = true ;;
+let test2 = same_fringe tree1 tree3 = false ;;
+let test3 = same_fringe tree2 tree3 = false ;;
+let test4 = same_fringe tree3 tree4 = false ;;
